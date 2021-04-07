@@ -1,1 +1,1 @@
-cat /etc/passwd | sed -e 's/:.*//g' | tr '\n' ',' | rev | tr "," "\n" | sort -r | tr "\n" "," | sed -e 's/, */, /g' -e 's/.\{4\}$//' | sed 's/$/./'
+cat /etc/passwd  | tr ':' ',' | cut -d "," -f 1 | sort -r | awk 'NR % 2 == 2 {print $0}{printf "%s%s",sep,$0; sep=", "} END{print "."}' | tr -d '\n' | sed -n "${FT_LINE1},${FT_LINE2}p"
